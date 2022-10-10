@@ -23,9 +23,40 @@ PrintArray(SortArrayOnRows (Array));
 //5 2 6 7
 //Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 
+/*
 int [,] Array= GetArray(5,3,0,9);
 PrintArray(Array);
 Console.WriteLine($"{GetIndexOfMinimum(GetSumOfRows(Array))} строка");
+*/
+
+//Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+//Например, даны 2 матрицы:
+//2 4 | 3 4
+//3 2 | 3 3
+//Результирующая матрица будет:
+//18 20
+//15 18
+
+int [,] Array1= GetArray(2,2,0,9);
+int [,] Array2= GetArray(2,2,0,9);
+Print2Array(Array1,Array2);
+Console.WriteLine("Произведение:");
+PrintArray(MultiplyArray(Array1,Array2));
+
+
+int [,] MultiplyArray (int [,] array1,int [,] array2)
+{
+    int [,] result=new int [array1.GetLength(0),array1.GetLength(1)];
+    for (int i=0; i<array1.GetLength(0);i++)
+    {
+        for (int j=0;j<array1.GetLength(1);j++)
+        {
+            result[i,j]=array1[i,j]*array2[i,j];
+            
+        }
+    }
+    return result;
+}
 
 
 int[] GetSumOfRows (int [,] array)
@@ -76,6 +107,23 @@ void PrintArray (int [,] arr)
         for (int j=0;j<arr.GetLength(1);j++)
         {
            Console.Write ($"{arr[i,j]} ");
+        }
+        Console.WriteLine();
+    }
+}
+
+void Print2Array (int [,] arr1,int [,] arr2)
+{
+ for (int i=0; i<arr1.GetLength(0);i++)
+    {
+        for (int j=0;j<arr1.GetLength(1);j++)
+        {
+           Console.Write ($"{arr1[i,j]} ");
+        }
+        Console.Write ("| ");
+        for (int j=0;j<arr1.GetLength(1);j++)
+        {
+           Console.Write ($"{arr2[i,j]} ");
         }
         Console.WriteLine();
     }
