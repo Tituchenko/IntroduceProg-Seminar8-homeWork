@@ -54,15 +54,110 @@ PrintArray(MultiplyArray(Array1,Array2));
 //34(1,0,0) 41(1,1,0)
 //27(0,0,1) 90(0,1,1)
 //26(1,0,1) 55(1,1,1)
-
+/*
 int [,,] Array3D= Get3DArray(2,2,2,0,99);
 Print3DArray(Array3D);
 
+*/
+//Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
+//Например, на выходе получается вот такой массив:
+//01 02 03 04
+//12 13 14 05
+//11 16 15 06
+//10 09 08 07
+
+int [,] ArraySpiral= GetSpiral(4);
+PrintBeatyArray(ArraySpiral);
+
+
+
+
+int[,] GetSpiral (int n)
+{
+    int [,] arr=new int [n,n];
+    int count=1;
+    int i=0;
+    int j=0;
+    string NextStep="Right";
+    while (count<=(n*n))
+    {
+        arr[i,j]=count;
+        count++;
+        switch (NextStep)
+        {
+            case "Right":
+                if ((j+1)<arr.GetLength(0))
+                {
+                    if (arr[i,j+1]==0) 
+                    {
+                        j++;                 
+                        break;
+                    }
+                } 
+                i++;
+                NextStep="Down";
+            break;
+            case "Down":
+                if ((i+1)<arr.GetLength(0))
+                {
+                    if (arr[i+1,j]==0) 
+                    {
+                        i++;
+                        break;
+                    }
+                } 
+                j--;
+                NextStep="Left";
+            break;
+            case "Left":
+                if ((j-1)>=0)
+                {
+                    if (arr[i,j-1]==0) 
+                    {
+                        j--;
+                        break;
+                    }
+                }
+                i--;
+                NextStep="Up";
+            break;
+            case "Up":
+                if ((i-1)>=0)
+                {
+                    if (arr[i-1,j]==0) 
+                    {
+                        i--;
+                        break;
+                    }
+                }
+                j++;
+                NextStep="Right"; 
+            break;
+        }
+    }
+
+
+
+    return arr;
+}
+
+void PrintBeatyArray (int [,] arr)
+{
+ for (int i=0; i<arr.GetLength(0);i++)
+    {
+        for (int j=0;j<arr.GetLength(1);j++)
+        {
+           if (arr[i,j]<10) Console.Write ($"0{arr[i,j]} ");
+           else Console.Write ($"{arr[i,j]} ");
+        }
+        Console.WriteLine();
+    }
+}
 
 bool inArray(int [] arr, int value)
 {
 bool res=false;
-for (int i=0; i<arr.Length;i++)
+for (int i=0; i<arr.Length;i++)   
 {
     if (arr[i]==value) 
     {
