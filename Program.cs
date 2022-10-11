@@ -37,7 +37,7 @@ Console.WriteLine($"{GetIndexOfMinimum(GetSumOfRows(Array))} строка");
 //18 20
 //15 18
 
-
+/*
 int [,] Array1= GetArray(4,4,0,9); // пусть квадратные обе, вроде разрешили
 int [,] Array2= GetArray(4,4,0,9);
 //int[,] Array1={{2,4},{3,2}}; //- проверка примера
@@ -46,7 +46,7 @@ int [,] Array2= GetArray(4,4,0,9);
 Print2Array(Array1,Array2);
 Console.WriteLine("Произведение:");
 PrintArray(MultiplyArray(Array1,Array2));
-
+*/
 
 //Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
 //Массив размером 2 x 2 x 2
@@ -54,39 +54,74 @@ PrintArray(MultiplyArray(Array1,Array2));
 //34(1,0,0) 41(1,1,0)
 //27(0,0,1) 90(0,1,1)
 //26(1,0,1) 55(1,1,1)
-/*
+
+int [,,] Array3D= Get3DArray(2,2,2,0,99);
+Print3DArray(Array3D);
+
+
 bool inArray(int [] arr, int value)
 {
 bool res=false;
 for (int i=0; i<arr.Length;i++)
 {
-    if ()
+    if (arr[i]==value) 
+    {
+        res=true;
+        break;
+    }
+    
 }
+return res;
 }
 
 int [,,] Get3DArray (int m, int n, int z, int MinValue, int MaxValue)
 {
-    int [,] result=new int [m,n,z];
-    int [] hasNum=new int [m*n*z];
+    int [,,] result=new int [m,n,z];
+    int [] hasNum=new int [m*n*z]; // тут будем плоско(а вот я художник-я так вижу и мне так проще) хранить уже иcпользованные значения
+    int countNum=0;
     for (int i=0; i<(m*n*z);i++)
     {
-        hasNum=MinValue-1; // нули не пойдут
+        hasNum[i]=MinValue-1; // нули не пойдут, вдруг мы его используем
     }
     for (int i=0; i<m;i++)
     {
         for (int j=0;j<n;j++)
         {
             for (int k=0;k<z;k++)
+            {
+                int tempVal=new Random().Next(MinValue,MaxValue+1);
+                while (inArray(hasNum, tempVal)) // будем долбить пока не уникально, опять же repeat..until бы сюда, жаль не проходили
+                {
+                    tempVal=new Random().Next(MinValue,MaxValue+1);
+                }
+                hasNum[countNum]=tempVal;
+                countNum++;
+                result [i,j,k]=tempVal;
 
-                result[i,j,z]=new Random().Next(MinValue,MaxValue+1);
             }
         }
     }
     return result;
 }
-*/
 
-int GetMultipleArrayElement (int [,] a,int [,] b,int i,int j) // вынесем, вдруг Wikipedia врет и правило другое, легче будет править
+void Print3DArray (int[,,] arr)
+{
+    
+    for (int k=0; k<arr.GetLength(2);k++)
+    {
+        for (int i=0;i<arr.GetLength(0);i++)
+        {
+            for (int j=0;j<arr.GetLength(1);j++)
+            {
+                Console.Write ($"{arr[i,j,k]} ({i},{j},{k}) ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+
+
+int GetMultipleArrayElement (int [,] a,int [,] b,int i,int j) // вынесем, вдруг Wikipedia врет и правило другое, легче будет править. А с примером просто повезло.
 {
     int sum=0;
     for (int k=0; k<a.GetLength(0);k++)
