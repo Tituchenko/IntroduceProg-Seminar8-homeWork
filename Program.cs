@@ -37,11 +37,64 @@ Console.WriteLine($"{GetIndexOfMinimum(GetSumOfRows(Array))} строка");
 //18 20
 //15 18
 
-int [,] Array1= GetArray(2,2,0,9);
-int [,] Array2= GetArray(2,2,0,9);
+
+int [,] Array1= GetArray(4,4,0,9); // пусть квадратные обе, вроде разрешили
+int [,] Array2= GetArray(4,4,0,9);
+//int[,] Array1={{2,4},{3,2}}; //- проверка примера
+//int[,] Array2={{3,4},{3,3}};
+
 Print2Array(Array1,Array2);
 Console.WriteLine("Произведение:");
 PrintArray(MultiplyArray(Array1,Array2));
+
+
+//Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
+//Массив размером 2 x 2 x 2
+//66(0,0,0) 25(0,1,0)
+//34(1,0,0) 41(1,1,0)
+//27(0,0,1) 90(0,1,1)
+//26(1,0,1) 55(1,1,1)
+/*
+bool inArray(int [] arr, int value)
+{
+bool res=false;
+for (int i=0; i<arr.Length;i++)
+{
+    if ()
+}
+}
+
+int [,,] Get3DArray (int m, int n, int z, int MinValue, int MaxValue)
+{
+    int [,] result=new int [m,n,z];
+    int [] hasNum=new int [m*n*z];
+    for (int i=0; i<(m*n*z);i++)
+    {
+        hasNum=MinValue-1; // нули не пойдут
+    }
+    for (int i=0; i<m;i++)
+    {
+        for (int j=0;j<n;j++)
+        {
+            for (int k=0;k<z;k++)
+
+                result[i,j,z]=new Random().Next(MinValue,MaxValue+1);
+            }
+        }
+    }
+    return result;
+}
+*/
+
+int GetMultipleArrayElement (int [,] a,int [,] b,int i,int j) // вынесем, вдруг Wikipedia врет и правило другое, легче будет править
+{
+    int sum=0;
+    for (int k=0; k<a.GetLength(0);k++)
+    {
+        sum+=a[i,k]*b[k,j];
+    }
+    return sum;
+}
 
 
 int [,] MultiplyArray (int [,] array1,int [,] array2)
@@ -51,7 +104,7 @@ int [,] MultiplyArray (int [,] array1,int [,] array2)
     {
         for (int j=0;j<array1.GetLength(1);j++)
         {
-            result[i,j]=array1[i,j]*array2[i,j];
+            result[i,j]=GetMultipleArrayElement(array1,array2,i,j);
             
         }
     }
