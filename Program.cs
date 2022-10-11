@@ -65,11 +65,59 @@ Print3DArray(Array3D);
 //12 13 14 05
 //11 16 15 06
 //10 09 08 07
-
+/*
 int [,] ArraySpiral= GetSpiral(4);
 PrintBeatyArray(ArraySpiral);
+*/
+
+//Отсортировать нечетные столбцы массива по возрастанию. Вывести массив изначальный и массив с отсортированными нечетными столбцами
+
+int [,] Array= GetArray(5,10,0,9);
+PrintArray(Array);
+Console.WriteLine();
+PrintArray(SortArray (Array));
 
 
+
+int[] SortJ (int [,] array,int j)
+{
+    int [] result=new int [array.GetLength(0)];
+    for (int i=0; i<array.GetLength(0);i++)
+    {
+        result[i]=array[i,j];
+    }
+    int count=1;// первый вход
+    while (count>0){
+        count=0;
+        for (int i=1; i<array.GetLength(0);i++)
+        {
+            if (result[i-1]>result[i])
+            {
+                int temp=result[i-1];
+                result[i-1]=result[i];
+                result[i]=temp;
+                count++;
+            }
+        }
+    }
+    return result;
+  
+    
+}
+
+int [,] SortArray (int [,] array)
+{
+    int [,] result=new int [array.GetLength(0),array.GetLength(1)];
+    for (int j=0; j<array.GetLength(1);j++)
+    {
+        for (int i=0;i<array.GetLength(0);i++)
+        {
+            if (j%2==0) result[i,j]=SortJ(array,j)[i];
+            else result[i,j]=array[i,j]; 
+        }
+    }
+    return result;
+}
 
 
 int[,] GetSpiral (int n)
